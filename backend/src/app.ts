@@ -1,9 +1,12 @@
 import express, { Request, Response, NextFunction } from "express";
 import { config } from './config/config';
+import connectToDatabase from "./db/connection";
 
 const app = express();
 
 app.use(express.json())
+
+connectToDatabase();
 
 app.get('/', (req: Request, res: Response) => {
     res.send("Server is wroking")
