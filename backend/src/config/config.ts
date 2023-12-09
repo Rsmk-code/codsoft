@@ -7,6 +7,8 @@ const DB_PASSWORD = process.env.DB_PASSWORD || '';
 const DB_NAME = process.env.DB_NAME || '';
 const DB_CONN_STRING = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.tvuglph.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
 
+const JWT_SECRET = process.env.JWT_SECRET || '';
+
 const SERVER_PORT = process.env.SERVER_PORT || 4001;
 
 export const config = {
@@ -16,5 +18,8 @@ export const config = {
     },
     server: {
         port: SERVER_PORT
+    },
+    jwt: {
+        secret: JWT_SECRET
     }
 }

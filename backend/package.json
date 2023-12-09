@@ -10,14 +10,21 @@
   "author": "Rsmk-code",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongoose": "^8.0.3"
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.10.4",
+    "@types/validator": "^13.11.7",
     "nodemon": "^3.0.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
