@@ -9,13 +9,14 @@ export interface IUser extends Document {
 }
 
 interface IUserModel extends Model<IUser> {
-    signup(email: string, password: string): Promise<IUser>;
+    signup(email: string, password: string, username: string): Promise<IUser>;
     login(email: string, password: string): Promise<IUser>;
   }
 
 const userSchema = new Schema<IUser>({
     username: {
-        type: String
+        type: String,
+        required: true,
     },
     email: {
         type: String,
@@ -34,10 +35,10 @@ const userSchema = new Schema<IUser>({
 );
 
 // static signup method
-userSchema.statics.signup = async function(email: string, password: string) {
+userSchema.statics.signup = async function(email: string, password: string, username: string) {
 
     // validation
-    if(!email || !password) {
+    if(!email || !password || !username) {
         throw Error('All fields must be filled')
     }
 
@@ -57,7 +58,7 @@ userSchema.statics.signup = async function(email: string, password: string) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash })
+    const user = await this.create({ email, password: hash, username })
     
     return user
 }

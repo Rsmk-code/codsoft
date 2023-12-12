@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import User, { IUser } from '../models/userModel';
 import generateToken from "../utils/generateToken";
 import {StatusCodes } from 'http-status-codes';
@@ -22,13 +22,14 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const signupUser = async (req: Request, res: Response, next: NextFunction) => { 
-    const  { email, password } = req.body as {
+    const  { email, password, username } = req.body as {
         email: string;
         password: string;
+        username: string;
     }
 
     try{
-        const user = await User.signup(email, password) 
+        const user = await User.signup(email, password, username) 
 
         // create a token 
         const token = generateToken(user._id)
