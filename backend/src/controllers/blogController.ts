@@ -4,11 +4,11 @@ import { StatusCodes } from 'http-status-codes';
 
 // Create a new blog post
 const createBlog = async (req: Request, res: Response, next: NextFunction) => {
-    const { title, content } = req.body as IBlog;
+    const { title, content, headline, picture } = req.body as IBlog;
     const user_id = req.user?._id;
 
     try {
-        const newBlog = await Blog.create({ title, content, author: user_id });
+        const newBlog = await Blog.create({ title, content, headline, picture,author: user_id });
         res.status(StatusCodes.CREATED).json({ data: newBlog });
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
@@ -44,12 +44,12 @@ const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 // Update a blog post
 const updateBlogById = async (req: Request, res: Response, next: NextFunction) => {
     const blogId = req.params.id;
-    const { title, content } = req.body as IBlog;
+    const { title, content, headline, picture } = req.body as IBlog;
 
     try {
         const updateBlog = await Blog.findByIdAndUpdate(
             blogId,
-            { title, content },
+            { title, content, headline, picture },
             { new: true, runValidators: true } // Return the updated document
         );
         if(!updateBlog) {
