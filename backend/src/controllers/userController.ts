@@ -14,22 +14,23 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 
         // create token 
         const token = generateToken(user._id)
-
-        res.status(StatusCodes.OK).json({email, token})
+        
+        res.status(StatusCodes.OK).json({email, username: user.username, token})
     }catch(error) {
         res.status(StatusCodes.BAD_REQUEST).json({error: error.message})
     }
 }
 
 const signupUser = async (req: Request, res: Response, next: NextFunction) => { 
-    const  { email, password, username } = req.body as {
+    const  { email, password, fullname, username } = req.body as {
         email: string;
         password: string;
         username: string;
+        fullname: string;
     }
 
     try{
-        const user = await User.signup(email, password, username) 
+        const user = await User.signup(email, password, fullname, username) 
 
         // create a token 
         const token = generateToken(user._id)
