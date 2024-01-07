@@ -24,18 +24,19 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const signupUser = async (req: Request, res: Response, next: NextFunction) => { 
-    let  { email, password, fullname, username } = req.body as {
+    let  { email, password, fullname, username, profilePicture } = req.body as {
         email: string;
         password: string;
         username: string;
         fullname: string;
+        profilePicture?: string;
     }
 
     email = email.toLowerCase();
     fullname = fullname.replace(/\b\w/g, (char) => char.toUpperCase());
     
     try{
-        const user = await User.signup(email, password, fullname, username) 
+        const user = await User.signup(email, password, fullname, username, profilePicture) 
 
         // create a token 
         const token = generateToken(user._id)
