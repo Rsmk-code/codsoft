@@ -4,11 +4,13 @@ import generateToken from "../utils/generateToken";
 import {StatusCodes } from 'http-status-codes';
 // login user
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.body as {
+    let { email, password } = req.body as {
         email: string;
         password: string;
     }
 
+    email = email.toLowerCase();
+    
     try {
         const user = await User.login(email, password)
 
@@ -22,13 +24,16 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const signupUser = async (req: Request, res: Response, next: NextFunction) => { 
-    const  { email, password, fullname, username } = req.body as {
+    let  { email, password, fullname, username } = req.body as {
         email: string;
         password: string;
         username: string;
         fullname: string;
     }
 
+    email = email.toLowerCase();
+    fullname = fullname.replace(/\b\w/g, (char) => char.toUpperCase());
+    
     try{
         const user = await User.signup(email, password, fullname, username) 
 
